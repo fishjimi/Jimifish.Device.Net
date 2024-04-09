@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <NoWarn>1701;1702;NU5125</NoWarn>
         <DocumentationFile>Usb.Net.xml</DocumentationFile>
         <DebugType>embedded</DebugType>
+
+		<PackageId>Jimifish.Usb.Net</PackageId>
+		<Version>1.0.1</Version>
+		<Authors>Jimifish</Authors>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/fishjimi/Jimifish.Device.Net</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
@@ -12,7 +18,7 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

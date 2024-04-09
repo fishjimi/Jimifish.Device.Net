@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <EnableNETAnalyzers>false</EnableNETAnalyzers>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -10,12 +10,12 @@
         <Compile Include="..\Usb.Net.UWP.Sample\TrezorExample.cs" Link="TrezorExample.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.7" />
-        <PackageReference Include="System.Reactive" Version="4.4.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+        <PackageReference Include="System.Reactive" Version="6.0.0" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DefineConstants>TRACE;LIBUSB</DefineConstants>

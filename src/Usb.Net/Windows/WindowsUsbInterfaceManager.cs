@@ -17,6 +17,7 @@ namespace Usb.Net.Windows
         private SafeFileHandle _DeviceHandle;
         protected ushort? ReadBufferSizeProtected { get; set; }
         protected ushort? WriteBufferSizeProtected { get; set; }
+        private ConnectedDeviceDefinition _DeviceDefinition;
         #endregion
 
         #region Public Properties
@@ -79,20 +80,20 @@ namespace Usb.Net.Windows
 #pragma warning disable CA2000 //We need to hold on to this handle
                 var defaultInterfaceHandle = new SafeFileHandle(interfaceHandle, false);
 #pragma warning restore CA2000
-                var connectedDeviceDefinition = GetDeviceDefinition(defaultInterfaceHandle, DeviceId, Logger);
+                _DeviceDefinition = GetDeviceDefinition(defaultInterfaceHandle, DeviceId, Logger);
 
                 if (!WriteBufferSizeProtected.HasValue)
                 {
-                    if (!connectedDeviceDefinition.WriteBufferSize.HasValue)
+                    if (!_DeviceDefinition.WriteBufferSize.HasValue)
                         throw new ValidationException("Write buffer size not specified");
-                    WriteBufferSizeProtected = (ushort)connectedDeviceDefinition.WriteBufferSize.Value;
+                    WriteBufferSizeProtected = (ushort)_DeviceDefinition.WriteBufferSize.Value;
                 }
 
                 if (!ReadBufferSizeProtected.HasValue)
                 {
-                    if (!connectedDeviceDefinition.ReadBufferSize.HasValue)
+                    if (!_DeviceDefinition.ReadBufferSize.HasValue)
                         throw new ValidationException("Read buffer size not specified");
-                    ReadBufferSizeProtected = (ushort)connectedDeviceDefinition.ReadBufferSize.Value;
+                    ReadBufferSizeProtected = (ushort)_DeviceDefinition.ReadBufferSize.Value;
                 }
 
                 //Get the first (default) interface
@@ -253,8 +254,7 @@ namespace Usb.Net.Windows
         {
             if (_DeviceHandle == null) throw new NotInitializedException();
 
-            //TODO: Is this right?
-            return Task.Run(() => DeviceBase.GetDeviceDefinitionFromWindowsDeviceId(DeviceId, DeviceType.Usb, Logger), cancellationToken);
+            return Task.FromResult(_DeviceDefinition);
         }
         #endregion
     }

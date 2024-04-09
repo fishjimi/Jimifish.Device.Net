@@ -40,10 +40,23 @@ namespace Usb.Net.WindowsSample
 
         private static TrezorExample _DeviceConnectionExample;
         #endregion
+        private static void DeviceListener_DeviceInitialized(object? sender, DeviceEventArgs e)
+        {
+            int a = 0;
+        }
 
         #region Main
         private static async Task Main()
         {
+            var usbFactory = new FilterDeviceDefinition(vendorId: 1115, productId: 1090).CreateWindowsUsbDeviceFactory();
+            var factories = usbFactory;
+
+            //var factories = hidFactory.Aggregate(usbFactory);
+            var _deviceListener = new DeviceListener(factories);
+            _deviceListener.DeviceInitialized += DeviceListener_DeviceInitialized;
+            _deviceListener.Start();
+
+
             //Register the factories for creating Usb devices. This only needs to be done once.
 #if LIBUSB
             _trezorFactories = new List<IDeviceFactory>
