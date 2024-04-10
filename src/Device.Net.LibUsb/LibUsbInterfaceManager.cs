@@ -208,20 +208,23 @@ namespace Device.Net.LibUsb
         public Task<ConnectedDeviceDefinition> GetConnectedDeviceDefinitionAsync(CancellationToken cancellationToken = default)
         {
             //TODO: this isn't very nice
-
             var usbRegistryInfo = UsbDevice.UsbRegistryInfo;
 
-            if (usbRegistryInfo == null)
-            {
-                return Task.FromResult(new ConnectedDeviceDefinition(
-                    UsbDevice.DevicePath,
-                    DeviceType.Usb,
-                    (uint)GetVendorId(UsbDevice),
-                    (uint)GetProductId(UsbDevice)));
-            }
+            //if (usbRegistryInfo == null)
+            //{
+            return Task.FromResult(new ConnectedDeviceDefinition(
+                usbRegistryInfo?.DevicePath ?? UsbDevice.DevicePath,
+                DeviceType.Usb,
+                (uint)(usbRegistryInfo?.Vid ?? GetVendorId(UsbDevice)),
+                (uint)(usbRegistryInfo?.Pid ?? GetProductId(UsbDevice)),
+                UsbDevice?.Info?.ProductString,
+                UsbDevice?.Info?.ManufacturerString,
+                UsbDevice?.Info?.SerialString
+                ));
+            //}
 
-            var result = usbRegistryInfo.ToConnectedDevice();
-            return Task.FromResult(result);
+            //var result = usbRegistryInfo.ToConnectedDevice();
+            //return Task.FromResult(result);
 
             //TODO: Return more information
         }

@@ -4,6 +4,12 @@
         <NoWarn>1701;1702;CA1063</NoWarn>
         <DocumentationFile>Device.Net.LibUsb.xml</DocumentationFile>    
         <DebugType>embedded</DebugType>
+
+		<PackageId>Jimifish.Device.Net.LibUsb</PackageId>
+		<Version>1.0.1</Version>
+		<Authors>Jimifish</Authors>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/fishjimi/Jimifish.Device.Net</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
